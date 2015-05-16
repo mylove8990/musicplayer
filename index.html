@@ -1,0 +1,124 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>开心听音乐</title>
+<link rel="stylesheet" href="./css/style.css" media="screen" type="text/css" />
+
+</head>
+<body>
+<div align="center"><canvas id="myCanvas" ></canvas></div>
+<!-- <div align="center"><audio id="myaudio" src="./music.mp3" controls="controls" autoplay="autoplay"></audio></div> -->
+<div align="center" style="margin:12px;">
+	<audio id="myMusic" > </audio> 
+	<input id="PauseTime"  type="hidden" />
+
+	<div class="MusicBox" >
+		<div class="LeftControl" ></div>
+		<div id="MainControl" class="MainControl" ></div>
+		<div class="RightControl" ></div>
+		<div class="ProcessControl">
+			<div class="SongName"></div>
+			<div class="SongTime">00:00&nbsp;|&nbsp;00:00</div>
+			<div class="Process" ></div>
+			<div class="ProcessYet"></div>
+		</div>
+		<div class="VoiceEmp"></div>
+		<div class="VoidProcess" ></div>
+		<div class="VoidProcessYet" ></div>
+		<div class="VoiceFull" ></div>
+		<div class="ShowMusicList" ></div>
+	</div>
+	<div class="MusicList">
+		<div class="List">
+		<!--<div class="Single" >
+				<span class="SongName"  KV="Fate" >Fate</span>
+			</div>--> 
+		</div>
+	</div>
+</div>
+</body>
+
+
+<script>
+var c=document.getElementById("myCanvas");
+var cxt=c.getContext("2d");
+var img=new Image()
+img.src="./img/init.jpg"
+var width = 0;
+var height = 0;
+var scale = 1;
+var rotate = 0.0005;
+Squares = screen.width > screen.height ? screen.height : screen.width;
+Squares = Squares * 8 / 9;
+img.onload = function(){
+	width = img.width ;
+	height = img.height ;
+	scale = Squares / width;
+	c.width = width * scale;
+	c.height = height * scale;
+
+	cxt.translate(width * 0.5, height * 0.5);
+	cxt.rotate(Math.PI * 0);
+	cxt.translate(width * -0.5, height * -0.5);
+	
+	cxt.scale(scale,scale);
+	cxt.clearRect(0, 0, width, height);
+	//cxt.save()
+	
+	cxt.beginPath();
+	cxt.arc(width * 0.5, height * 0.5, width * 0.5, 0, 2 * Math.PI, false);
+	cxt.closePath();
+	cxt.clip();
+	cxt.drawImage(img, 0, 0);
+	cxt.save()
+	
+}
+
+function ro(){
+	cxt.restore()
+	cxt.clearRect(0, 0, width, height);
+	cxt.translate(width * 0.5, height * 0.5);
+	cxt.rotate(Math.PI * rotate);
+	cxt.translate(width * -0.5, height * -0.5);
+
+//	cxt.beginPath();
+//	cxt.arc(width * 0.5, height * 0.5, width * 0.5, 0, 2 * Math.PI, false);
+//	cxt.clip();
+//	cxt.closePath();
+	cxt.drawImage(img, 0, 0);
+	cxt.save()
+	
+}
+
+var timer = 0;
+//setInterval(ro, 25);
+function startrotate(){
+	if (!timer){
+		timer = setInterval(ro, 25);
+	}
+}
+function stoprotate(){
+	if( timer ){
+		clearInterval(timer);
+		timer = 0;
+	}
+}
+
+</script>
+<script src="./js/util.js"></script>
+<script src="./js/webutil.js"></script>
+<script src="./js/jquery-1.4.1.min.js"></script>
+<script src="./js/loadmusic.js"></script>
+<script>
+var INCLUDE_URI= "./list/";
+
+userid = WebUtil.getQueryVar('userid', "default");
+Util.load_scripts([userid+".list"]);
+window.onscriptsload = function () {
+loadmusic();	
+};
+
+</script>
+<script src="./js/audio.js"></script>
+</html>

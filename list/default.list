@@ -1,0 +1,8 @@
+var MusicSpace = "./default/";
+var MusicList = [
+'一生所爱|yishengsuoai.mp3|yishengsuoai.jpg',
+'天空中最亮的星|tiankongzhongzuiliangdexing.mp3|tiankongzhongzuiliangdexing.png',
+'雨中印记|yuzhongyinji.mp3|yuzhongyinji.png',
+'天空之城|tiankongzhicheng.mp3|tiankongzhicheng.png',
+'Yesterday Once More|Yesterday Once More.mp3|Yesterday Once More.jpg'
+];

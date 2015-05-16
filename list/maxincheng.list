@@ -1,0 +1,4 @@
+var MusicSpace = "./maxincheng/";
+var MusicList = [
+'飘洋过海来看你|pyghlkn.mp3|ljr.jpg',
+];
